@@ -1,6 +1,7 @@
 body {
-  background: #222;
-  background-color: #222;
+  background: #1d1d1d;
+  background-color: #1d1d1d;
+  color: #ededed;
 }
 
 .reveal h1,
@@ -18,7 +19,7 @@ body {
 }
 .reveal section h1,
 .reveal section h2 {
-  color: #e25d45;
+  color: #007acc;
 }
 .reveal section .highlight {
   color: #c9f833;
@@ -27,7 +28,7 @@ body {
   color: #ff3737;
 }
 .reveal pre {
-  font-size: 1em;
+  font-size: .65em;
   width: auto;
   padding: 15px;
   word-wrap: break-word;
@@ -39,4 +40,9 @@ body {
   background-color: #3f3f3f;
   color: white;
   padding: 4px;
+}
+
+ul.no-bullet {
+  list-style-type: none !important;
+  margin-left: 0 !important;  
 }
