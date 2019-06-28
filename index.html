@@ -33,48 +33,45 @@
     <div class="reveal">
       <div class="slides">
         <section>
-          <div style="display: grid; align-items: center; grid-auto-flow: column; justify-content: center;">
-            <img src="https://raw.githubusercontent.com/remojansen/logo.ts/master/ts.png" style="height: 130px;" alt="">
+          <div
+            style="display: grid; align-items: center; grid-auto-flow: column; justify-content: center;"
+          >
+            <img
+              src="https://raw.githubusercontent.com/remojansen/logo.ts/master/ts.png"
+              style="height: 130px;"
+              alt=""
+            />
           </div>
           <h1>
             TypeScript
           </h1>
-          <aside class="notes">            
-              Union Type, Type Guard, Type Guard in switch-case
-          Generics, Constraints, keyof
-          Best Prsctices React & TS
-          Decorators (log, bind) (--experimentalDecorators)
-          What's new
-          
-            </aside>
+          <aside class="notes">
+            Union Type, Type Guard, Type Guard in switch-case Generics, keyof
+            Best Prsctices React & TS Decorators (log, bind) (keyof -->
+            jest.spyOn) (--experimentalDecorators) What's new
+          </aside>
         </section>
 
-<section>
-  <section><h1>Must Have Configuration</h1></section>
-  <section>
+        <section>
+          <section><h1>Must Have Configuration</h1></section>
+          <section>
+            <ul class="no-bullet">
+              <li>
+                <pre><code data-line-numbers>--strict</code></pre>
+              </li>
+              <br />
+              <li class="fragment" style="margin-left: 4rem; font-size: .8em;">
+                <pre><code data-line-numbers>--noImplicitAny</code></pre>
+                <p>TODO</p>
+              </li>
 
-
-    <ul class="no-bullet">
-      <li>
-        <pre>--strict</pre>
-       </li>
-<br>
-      <li class="fragment" style="margin-left: 4rem; font-size: .8em;">
-        <pre>--noImplicitAny</pre>
-        <p>TODO</p>
-      </li>
-
-      <li class="fragment" style="margin-left: 4rem; font-size: .8em;"> 
-        <pre>--strictNullChecks</pre>
-        <p>TODO</p>
-      </li>
-  </ul>
-
-  </section>
-</section>
-
-
-
+              <li class="fragment" style="margin-left: 4rem; font-size: .8em;">
+                <pre><code data-line-numbers>--strictNullChecks</code></pre>
+                <p>TODO</p>
+              </li>
+            </ul>
+          </section>
+        </section>
 
         <section>
           <section>
@@ -82,59 +79,134 @@
           </section>
         </section>
 
-
         <section>
-            <section>
-              <h1>Generics</h1>
-            </section>
+          <section>
+            <h1>Generics</h1>
           </section>
 
+          <section>
+            <pre><code class="ts" data-line-numbers>const parseJson = (json: string): any => 
+  JSON.parse(json);</code></pre>
+          </section>
+          <section>
+            <pre><code class="ts" data-line-numbers data-noescape>const parseJson = <mark>&lt;T&gt;</mark>(json: string): <mark>T</mark> =>
+  JSON.parse(json)<mark> as T</mark>;</code></pre>
+          </section>
+          <section>
+            <pre><code class="ts" data-line-numbers data-noescape>const parseJson = 
+  &lt;T<mark> extends { id: string }</mark>&gt;(json: string): T => {
+  const result = JSON.parse(json) as T;
+  logger.log(`parsed object with id ${<mark>result.id</mark>}`);
+  return result;
+};</code></pre>
+          </section>
+          <section>
+            <pre><code class="ts" data-line-numbers>const getLength = &lt;T extends any[]&gt;(object: T): number =>
+  object.length;</code></pre>
+          </section>
 
           <section>
-              <section>
-                <h1>Some Best Practices</h1>
-              </section>
+            keyof
 
+            <pre><code class="ts" data-line-numbers>interface Person {
+  name: string;
+  id: string;
+}
+type keys = keyof Person; // "name" | "id"
+</code></pre>
+          </section>
 
-                <section>
-                  <p>Always define type when initialising an object with some properties</p>
-                  <pre><code class="ts" data-line-numbers>interface Person {
+          <section>
+            <pre><code class="ts" data-line-numbers>const spyOn = &lt;T, K extends keyof T&gt;
+    (object: T, key: K) => {
+    ...
+}</code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Decorators</h1>
+          </section>
+          <section>
+            <pre><code data-line-numbers>--experimentalDecorators</code></pre>
+            <pre><code data-line-numbers>{
+    "compilerOptions": {
+        "experimentalDecorators": true
+    }
+}</code></pre>
+          </section>
+
+          <section>
+            <ul>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+
+              class declaration, method, accessor, property, or parameter.
+            </ul>
+          </section>
+
+          <section>
+            <pre><code class="ts" data-line-numbers>function logMethod(
+  target: object,
+  propertyKey: string,
+  descriptor: PropertyDescriptor
+) {
+  console.dir(`Call method ${propertyKey}`);
+  return descriptor.value;
+}</code></pre>
+          </section>
+        </section>
+
+        <section>
+          <section>
+            <h1>Some Best Practices</h1>
+          </section>
+
+          <section>
+            <p>
+              Always define type when initialising an object with some
+              properties
+            </p>
+            <pre><code class="ts" data-line-numbers>interface Person {
   id: string;
   name: string;
 }</code></pre>
-                  <pre class="fragment fade-in-then-semi-out"><code class="ts" data-line-numbers>const person = { name: "Igor" }; // everything seems fine</code></pre>
-                  <pre class="fragment"><code class="ts" data-line-numbers>const person: Person = { 
+            <pre
+              class="fragment fade-in-then-semi-out"
+            ><code class="ts" data-line-numbers>const person = { name: "Igor" };
+// everything seems fine</code></pre>
+            <pre
+              class="fragment"
+            ><code class="ts" data-line-numbers>const person: Person = { 
   name: "Igor"
 }; // missing property 'id'</code></pre>
-                </section>
+          </section>
 
-                <section><p>When using connect HOC, specify all generic parameters explicitly:</p>
-                  <pre>connect<span class="highlight">&lt;Props, DispatchProps, OwnProps, GlobalState&gt;</span>(
+          <section>
+            <p>
+              When using connect HOC, specify all generic parameters explicitly:
+            </p>
+            <pre>connect<span class="highlight">&lt;Props, DispatchProps, OwnProps, GlobalState&gt;</span>(
 mapStateToProps,
 mapDispatchToProps,
 )(ScheduleBody);</pre>
-                </section>
+          </section>
+        </section>
 
+        <section>
+          <section>
+            <h1>What's new?</h1>
+          </section>
+        </section>
 
-            </section>
-
-
-       
-        
-
-<section>
-    <section>
-  <h1>What's new?</h1>
-</section>
-  </section>
-
-
-<section>
-  <section>
-    <h1>Any Questions?</h1>
-  </section>
-</section>
-
+        <section>
+          <section>
+            <h1>Any Questions?</h1>
+          </section>
+        </section>
       </div>
     </div>
 

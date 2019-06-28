@@ -28,7 +28,7 @@ body {
   color: #ff3737;
 }
 .reveal pre {
-  font-size: .65em;
+  font-size: 0.6em;
   width: auto;
   padding: 15px;
   word-wrap: break-word;
@@ -41,8 +41,13 @@ body {
   color: white;
   padding: 4px;
 }
+.reveal pre mark {
+  background: transparent;
+  color: inherit;
+  border: 2px solid #007acc;
+}
 
 ul.no-bullet {
   list-style-type: none !important;
-  margin-left: 0 !important;  
+  margin-left: 0 !important;
 }
