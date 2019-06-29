@@ -54,23 +54,65 @@
 
         <section>
           <section><h1>Must Have Configuration</h1></section>
-          <section>
-            <ul class="no-bullet">
-              <li>
-                <pre><code data-line-numbers>--strict</code></pre>
-              </li>
-              <br />
-              <li class="fragment" style="margin-left: 4rem; font-size: .8em;">
-                <pre><code data-line-numbers>--noImplicitAny</code></pre>
-                <p>TODO</p>
-              </li>
 
-              <li class="fragment" style="margin-left: 4rem; font-size: .8em;">
-                <pre><code data-line-numbers>--strictNullChecks</code></pre>
-                <p>TODO</p>
-              </li>
+          <section>
+            <h2>noImplicitAny</h2>
+            <ul>
+              <li>When no type of a variable is given, an error will be thrown</li>
+              <li>Either use <code>any</code> if intended or use the correct type</li>
             </ul>
           </section>
+          <section>
+              <pre><code class="ts" data-line-numbers>function anyFunction(param) {
+  ...   
+}
+// Error: Parameter 'param' implicitly has an 'any' type</code></pre>
+          </section>
+          <section>
+              <pre><code data-line-numbers>--noImplicitAny</code></pre>
+              <pre><code data-line-numbers>{
+    "compilerOptions": {
+        "noImplicitAny": true
+    }
+}</code></pre>
+          </section>
+
+          <section>
+              <h2>strictNullChecks</h2>
+              <ul>
+                <li><code>null</code> and <code>undefined</code> are not automatically assignable to every type</li>
+                <li><code>null</code> and <code>undefined</code> are two different types</li>
+                <li>You have to specify them explicitly in order to assign them</li>
+              </ul>
+            </section>
+            <section>
+                <pre><code class="ts" data-line-numbers>let n1: number;
+let n2: number | undefined;
+let n3: number | null;
+
+n1 = undefined; // 'undefined' not assignable to 'number'
+n1 = null; // 'null' not assignable to 'number'
+n2 = null; // 'null' not assignable to 'number | undefined'
+n3 = undefined; // 'undefined' not assignable to 'number | null'</code></pre>
+            </section>
+            <section>
+                <pre><code data-line-numbers>--strictNullChecks</code></pre>
+                <pre><code data-line-numbers>{
+    "compilerOptions": {
+        "strictNullChecks": true
+    }
+}</code></pre>
+            </section>
+
+            <section>
+              <h2>Enable all strict type checking options at once</h2>
+                <pre><code data-line-numbers>--strict</code></pre>
+                <pre><code data-line-numbers>{
+    "compilerOptions": {
+        "strict": true
+    }
+}</code></pre>
+            </section>
         </section>
 
         <section>
@@ -129,6 +171,7 @@ type keys = keyof Person; // "name" | "id"
             <h1>Decorators</h1>
           </section>
           <section>
+            <h2>Necessary Compiler Flag</h2>
             <pre><code data-line-numbers>--experimentalDecorators</code></pre>
             <pre><code data-line-numbers>{
     "compilerOptions": {
@@ -138,17 +181,23 @@ type keys = keyof Person; // "name" | "id"
           </section>
 
           <section>
-            <ul>
-              <li></li>
-              <li></li>
-              <li></li>
-              <li></li>
+            <pre><code class="ts" data-line-numbers>@decorateClass
+class AnyClass {}
 
-              class declaration, method, accessor, property, or parameter.
-            </ul>
+@decorateMethod
+public anyMethod()
+
+@decorateProperty
+_x: number;
+
+@decorateAccessor
+get x() { return this._x; }
+
+public anyMethod(@decorateParameter message: string)</code></pre>
           </section>
 
           <section>
+            <h2>Use a decorator for simple logging</h2>
             <pre><code class="ts" data-line-numbers>function logMethod(
   target: object,
   propertyKey: string,
@@ -157,6 +206,28 @@ type keys = keyof Person; // "name" | "id"
   console.dir(`Call method ${propertyKey}`);
   return descriptor.value;
 }</code></pre>
+          </section>
+          <section>
+            <h2>Possible Use Case: @bind</h2>
+              <pre class="fragment fade-in-then-semi-out"><code class="ts" data-line-numbers>this.handleClick = this.handleClick.bind(this);
+
+...
+
+private handleClick () { ... }</code></pre>
+          <div class="fragment">
+          <pre><code class="ts" data-line-numbers>@bind
+private handleClick () { ... }</code></pre>
+<br>
+<p>For example: <a target="_blank" href="https://github.com/NoHomey/bind-decorator/blob/master/src/index.ts">https://github.com/NoHomey/bind-decorator/blob/master/src/index.ts</a></p> 
+</div>    
+          </section>
+          <section>
+            <h2>So Use Only Decorators?</h2>
+            <ul>
+              <li>Great for little helpers, e.g. logging, binding</li>
+              <li>Don't use decorators for all and everything</li>
+              <li>For complex logic, better go with HOC, custom hooks, etc.</li>
+            </ul>
           </section>
         </section>
 
@@ -199,7 +270,21 @@ mapDispatchToProps,
         <section>
           <section>
             <h1>What's new?</h1>
+            https://devblogs.microsoft.com/typescript/announcing-typescript-3-5/
           </section>
+          <section>
+            <h2>Omit</h2>
+          </section>
+          <section>
+              <h2>Improved excess property checks in union types</h2>
+            </section>
+            <section>
+                <h2>Smarter union type checking</h2>
+              </section>
+              <section>
+                  <h2>Extract to type alias</h2>
+                  <img src="https://devblogs.microsoft.com/typescript/wp-content/uploads/sites/11/2019/05/extractType-3.5.gif" alt="">
+                </section>
         </section>
 
         <section>

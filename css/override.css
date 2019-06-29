@@ -21,6 +21,10 @@ body {
 .reveal section h2 {
   color: #007acc;
 }
+.reveal section h2 {
+  margin-bottom: 4rem;
+}
+
 .reveal section .highlight {
   color: #c9f833;
 }
