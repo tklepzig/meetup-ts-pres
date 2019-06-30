@@ -396,12 +396,45 @@ mapDispatchToProps,
           </section>
           <section>
             <h2>Omit</h2>
+      <pre><code class="ts" data-line-numbers>type Person = {
+  name: string;
+  age: number;
+};
+
+type OnlyName = Pick&lt;Person, Exclude&lt;keyof Person, "age"&gt;&gt;;
+  
+// equivalent to
+type OnlyName = { name: string };</code></pre>
+<pre class="fragment"><code class="ts" data-line-numbers>type OnlyName = Omit&lt;Person, "age"&gt;;</code></pre>
           </section>
           <section>
               <h2>Improved excess property checks in union types</h2>
+      <pre><code class="ts" data-line-numbers>type Point = { x: number, y: number };
+type Label = { name: string };
+
+const thing: Point | Label = {
+  x: 0,
+  y: 0,
+  name: true // incorrect type,
+  // but prior to version 3.5 no error was thrown!
+};</code></pre>
+
+              
             </section>
             <section>
                 <h2>Smarter union type checking</h2>
+                <pre><code class="ts" data-line-numbers>type S = { done: boolean, value: number }
+type T =
+  | { done: false, value: number }
+  | { done: true, value: number };
+
+declare let source: S;
+declare let target: T;
+
+target = source; // prior to version 3.5 an error was thrown
+// because each type of the union was tested in isolation</code></pre>
+
+                
               </section>
               <section>
                   <h2>Extract to type alias</h2>
