@@ -7,7 +7,7 @@
       content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
     />
 
-    <title>TypeScript & React</title>
+    <title>TypeScript</title>
 
     <link rel="stylesheet" href="css/reset.css" />
     <link rel="stylesheet" href="css/reveal.css" />
@@ -31,7 +31,6 @@
   </head>
   <body>
     <div class="reveal">
-      <pre><code class="ts" data-line-numbers>Code</code></pre>
       <div class="slides">
         <section>
           <div
@@ -355,44 +354,7 @@ private handleClick () { ... }</code></pre>
 
         <section>
           <section>
-            <h1>Some Best Practices</h1>
-          </section>
-
-          <section>
-            <p>
-              Always define type when initialising an object with some
-              properties
-            </p>
-            <pre><code class="ts" data-line-numbers>interface Person {
-  id: string;
-  name: string;
-}</code></pre>
-            <pre
-              class="fragment fade-in-then-semi-out"
-            ><code class="ts" data-line-numbers>const person = { name: "Igor" };
-// everything seems fine</code></pre>
-            <pre
-              class="fragment"
-            ><code class="ts" data-line-numbers>const person: Person = { 
-  name: "Igor"
-}; // missing property 'id'</code></pre>
-          </section>
-
-          <section>
-            <p>
-              When using connect HOC, specify all generic parameters explicitly:
-            </p>
-            <pre>connect<span class="highlight">&lt;Props, DispatchProps, OwnProps, GlobalState&gt;</span>(
-mapStateToProps,
-mapDispatchToProps,
-)(ScheduleBody);</pre>
-          </section>
-        </section>
-
-        <section>
-          <section>
-            <h1>What's new?</h1>
-            https://devblogs.microsoft.com/typescript/announcing-typescript-3-5/
+            <h1>What's New?</h1>
           </section>
           <section>
             <h2>Omit</h2>
