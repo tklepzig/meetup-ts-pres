@@ -31,6 +31,7 @@
   </head>
   <body>
     <div class="reveal">
+      <pre><code class="ts" data-line-numbers>Code</code></pre>
       <div class="slides">
         <section>
           <div
@@ -46,9 +47,7 @@
             TypeScript
           </h1>
           <aside class="notes">
-            Union Type, Type Guard, Type Guard in switch-case Generics, keyof
-            Best Prsctices React & TS Decorators (log, bind) (keyof -->
-            jest.spyOn) (--experimentalDecorators) What's new
+            Union Type, Type Guard, Type Guard in switch-case Generics
           </aside>
         </section>
 
@@ -118,6 +117,120 @@ n3 = undefined; // 'undefined' not assignable to 'number | null'</code></pre>
         <section>
           <section>
             <h1>Union Types and Type Guards</h1>
+          </section>
+
+          <section>
+<h2>Union Types</h2>
+<pre><code class="ts" data-line-numbers>type Dice = 1 | 2 | 3 | 4 | 5 | 6;
+type Animation = "ease-in" | "ease-out" | "ease-in-out";
+type Shape = Square | Rectangle | Circle | Triangle | Polygon;</code></pre>
+          </section>
+          <section>
+            <h2>Type Guards</h2>
+            <p>Get type-safety within a block of code to specify the exact type of a collection of different types</p>
+          </section>
+          <section>
+            <pre><code class="ts" data-line-numbers>function log(message: string, category: string | undefined) {
+  if (category)
+  {
+    // category can't be undefined anymore
+  }
+}</code></pre>
+          </section>
+          <section>
+            <pre><code class="ts" data-line-numbers>function add(param: string | number) {
+  if (typeof param === "string") {
+    // param is only string now, no union type anymore
+  }
+  else {
+    // param is only number
+  }
+}</code></pre>
+          </section>
+          <section>
+            <pre><code class="ts" data-line-numbers data-noescape>interface Bird {
+  fly();
+  layEggs();
+}
+interface Fish {
+  swim();
+  layEggs();
+}
+function isFish(pet: Fish | Bird): <mark>pet is Fish</mark> {
+  return (pet as Fish).swim !== undefined;
+  return "swim" in pet;
+}</code></pre>
+          </section>
+          <section>
+            <h2>Discriminated Unions</h2>
+            <p>All types in the union have a common type, the <span class="highlight">discriminant</span> which is used in the type guard to differentiate between types</p>
+          </section>
+          <section>
+              <pre><code class="ts" data-line-numbers data-noescape>interface Square {
+  <mark>kind: "square";</mark>
+  ...
+}
+interface Rectangle {
+  <mark>kind: "rectangle";</mark>
+  ...
+}
+
+function isSquare(shape: Square | Rectangle): shape is Square {
+  return shape.kind === "square";
+}</code></pre>
+          </section>
+          <section>
+            <h2>Exhaustiveness Checking</h2>
+            <p>To make sure to cover all variants of a discriminated union</p>
+          </section>
+          <section>
+              <pre><code class="ts" data-line-numbers>interface Square {
+  kind: "square";
+  ...
+}
+interface Rectangle {
+  kind: "rectangle";
+  ...
+}
+
+type Shape = Square | Rectangle;</code></pre>
+          </section>
+          <section>
+              <pre><code class="ts" data-line-numbers>function area(s: Shape) {
+  switch (s.kind) {
+    case "square": return s.length ** 2;
+    case "rectangle": return s.height * s.width;
+  }
+}</code></pre>
+          </section>
+          <section>
+              <pre><code class="ts" data-line-numbers>interface Circle {
+    kind: "circle";
+    ...
+}
+
+type Shape = Square | Rectangle | Circle;</code></pre>
+          </section>
+          <section>
+              <pre><code class="ts" data-line-numbers data-noescape>function area(s: Shape)<mark>: number</mark> {
+  switch (s.kind) {
+    case "square": return s.length ** 2;
+    case "rectangle": return s.height * s.width;
+  }
+} // error: returns number | undefined instead of number</code></pre>
+          </section>
+          <section>
+              <pre><code class="ts" data-line-numbers>function assertNever(x: never): never {
+  throw new Error("Unexpected object: " + x);
+}
+
+function area(s: Shape) {
+  switch (s.kind) {
+    case "square": return s.length ** 2;
+    case "rectangle": return s.height * s.width;
+    default: return assertNever(s);
+  }
+} // error: 'Circle' is not assignable to type 'never'</code></pre>
           </section>
         </section>
 
