@@ -248,6 +248,10 @@ function area(s: Shape) {
   JSON.parse(json)<mark> as T</mark>;</code></pre>
           </section>
           <section>
+            <h2>Specify Constraints</h2>
+            <p>If you have want to limit the possible range of types of the generic parameter, you can define constraints</p>
+          </section>
+          <section>
             <pre><code class="ts" data-line-numbers data-noescape>const parseJson = 
   &lt;T<mark> extends { id: string }</mark>&gt;(json: string): T => {
   const result = JSON.parse(json) as T;
@@ -261,8 +265,10 @@ function area(s: Shape) {
           </section>
 
           <section>
-            keyof
-
+            <h2>The <code>keyof</code> operator</h2>
+            <p>Creates a union of known, public property names of a type</p>
+          </section>
+          <section>
             <pre><code class="ts" data-line-numbers>interface Person {
   name: string;
   id: string;
@@ -275,7 +281,10 @@ type keys = keyof Person; // "name" | "id"
             <pre><code class="ts" data-line-numbers>const spyOn = &lt;T, K extends keyof T&gt;
     (object: T, key: K) => {
     ...
-}</code></pre>
+}
+
+spyOn(anyObject, ""); // <-- only known members 
+// of the type of anyObject are possible</code></pre>
           </section>
         </section>
 
