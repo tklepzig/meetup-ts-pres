@@ -2,6 +2,7 @@
 *.iml
 *.iws
 *.eml
+*Ts.js
 out/
 .DS_Store
 .svn
