@@ -53,19 +53,23 @@
           <section>
             <h2>noImplicitAny</h2>
             <ul>
-              <li>When no type of a variable is given, an error will be thrown</li>
-              <li>Either use <code>any</code> if intended or use the correct type</li>
+              <li>
+                When no type of a variable is given, an error will be thrown
+              </li>
+              <li>
+                Either use <code>any</code> if intended or use the correct type
+              </li>
             </ul>
           </section>
           <section>
-              <pre><code class="ts" data-line-numbers>function anyFunction(param) {
+            <pre><code class="ts" data-line-numbers>function anyFunction(param) {
   ...   
 }
 // Error: Parameter 'param' implicitly has an 'any' type</code></pre>
           </section>
           <section>
-              <pre><code data-line-numbers>--noImplicitAny</code></pre>
-              <pre><code data-line-numbers>{
+            <pre><code data-line-numbers>--noImplicitAny</code></pre>
+            <pre><code data-line-numbers>{
     "compilerOptions": {
         "noImplicitAny": true
     }
@@ -73,15 +77,23 @@
           </section>
 
           <section>
-              <h2>strictNullChecks</h2>
-              <ul>
-                <li><code>null</code> and <code>undefined</code> are not automatically assignable to every type</li>
-                <li><code>null</code> and <code>undefined</code> are two different types</li>
-                <li>You have to specify them explicitly in order to assign them</li>
-              </ul>
-            </section>
-            <section>
-                <pre><code class="ts" data-line-numbers>let n1: number;
+            <h2>strictNullChecks</h2>
+            <ul>
+              <li>
+                <code>null</code> and <code>undefined</code> are not
+                automatically assignable to every type
+              </li>
+              <li>
+                <code>null</code> and <code>undefined</code> are two different
+                types
+              </li>
+              <li>
+                You have to specify them explicitly in order to assign them
+              </li>
+            </ul>
+          </section>
+          <section>
+            <pre><code class="ts" data-line-numbers>let n1: number;
 let n2: number | undefined;
 let n3: number | null;
 
@@ -89,25 +101,25 @@ n1 = undefined; // 'undefined' not assignable to 'number'
 n1 = null; // 'null' not assignable to 'number'
 n2 = null; // 'null' not assignable to 'number | undefined'
 n3 = undefined; // 'undefined' not assignable to 'number | null'</code></pre>
-            </section>
-            <section>
-                <pre><code data-line-numbers>--strictNullChecks</code></pre>
-                <pre><code data-line-numbers>{
+          </section>
+          <section>
+            <pre><code data-line-numbers>--strictNullChecks</code></pre>
+            <pre><code data-line-numbers>{
     "compilerOptions": {
         "strictNullChecks": true
     }
 }</code></pre>
-            </section>
+          </section>
 
-            <section>
-              <h2>Enable all strict type checking options at once</h2>
-                <pre><code data-line-numbers>--strict</code></pre>
-                <pre><code data-line-numbers>{
+          <section>
+            <h2>Enable all strict type checking options at once</h2>
+            <pre><code data-line-numbers>--strict</code></pre>
+            <pre><code data-line-numbers>{
     "compilerOptions": {
         "strict": true
     }
 }</code></pre>
-            </section>
+          </section>
         </section>
 
         <section>
@@ -116,14 +128,17 @@ n3 = undefined; // 'undefined' not assignable to 'number | null'</code></pre>
           </section>
 
           <section>
-<h2>Union Types</h2>
-<pre><code class="ts" data-line-numbers>type Dice = 1 | 2 | 3 | 4 | 5 | 6;
+            <h2>Union Types</h2>
+            <pre><code class="ts" data-line-numbers>type Dice = 1 | 2 | 3 | 4 | 5 | 6;
 type Animation = "ease-in" | "ease-out" | "ease-in-out";
-type Shape = Square | Rectangle | Circle | Triangle | Polygon;</code></pre>
+type Shape = Square | Rectangle | Circle | Triangle;</code></pre>
           </section>
           <section>
             <h2>Type Guards</h2>
-            <p>Get type-safety within a block of code to specify the exact type of a collection of different types</p>
+            <p>
+              Get type-safety within a block of code to specify the exact type
+              of a collection of different types
+            </p>
           </section>
           <section>
             <pre><code class="ts" data-line-numbers>function log(message: string, category: string | undefined) {
@@ -159,10 +174,14 @@ function isFish(pet: Fish | Bird): <mark>pet is Fish</mark> {
           </section>
           <section>
             <h2>Discriminated Unions</h2>
-            <p>All types in the union have a common type, the <span class="highlight">discriminant</span> which is used in the type guard to differentiate between types</p>
+            <p>
+              All types in the union have a common type, the
+              <span class="highlight">discriminant</span> which is used in the
+              type guard to differentiate between types
+            </p>
           </section>
           <section>
-              <pre><code class="ts" data-line-numbers data-noescape>interface Square {
+            <pre><code class="ts" data-line-numbers data-noescape>interface Square {
   <mark>kind: "square";</mark>
   ...
 }
@@ -180,7 +199,7 @@ function isSquare(shape: Square | Rectangle): shape is Square {
             <p>To make sure to cover all variants of a discriminated union</p>
           </section>
           <section>
-              <pre><code class="ts" data-line-numbers>interface Square {
+            <pre><code class="ts" data-line-numbers>interface Square {
   kind: "square";
   ...
 }
@@ -192,7 +211,7 @@ interface Rectangle {
 type Shape = Square | Rectangle;</code></pre>
           </section>
           <section>
-              <pre><code class="ts" data-line-numbers>function area(s: Shape) {
+            <pre><code class="ts" data-line-numbers>function area(s: Shape) {
   switch (s.kind) {
     case "square": return s.length ** 2;
     case "rectangle": return s.height * s.width;
@@ -200,7 +219,7 @@ type Shape = Square | Rectangle;</code></pre>
 }</code></pre>
           </section>
           <section>
-              <pre><code class="ts" data-line-numbers>interface Circle {
+            <pre><code class="ts" data-line-numbers>interface Circle {
     kind: "circle";
     ...
 }
@@ -208,7 +227,7 @@ type Shape = Square | Rectangle;</code></pre>
 type Shape = Square | Rectangle | Circle;</code></pre>
           </section>
           <section>
-              <pre><code class="ts" data-line-numbers data-noescape>function area(s: Shape)<mark>: number</mark> {
+            <pre><code class="ts" data-line-numbers data-noescape>function area(s: Shape)<mark>: number</mark> {
   switch (s.kind) {
     case "square": return s.length ** 2;
     case "rectangle": return s.height * s.width;
@@ -216,7 +235,7 @@ type Shape = Square | Rectangle | Circle;</code></pre>
 } // error: returns number | undefined instead of number</code></pre>
           </section>
           <section>
-              <pre><code class="ts" data-line-numbers>function assertNever(x: never): never {
+            <pre><code class="ts" data-line-numbers>function assertNever(x: never): never {
   throw new Error("Unexpected object: " + x);
 }
 
@@ -245,7 +264,10 @@ function area(s: Shape) {
           </section>
           <section>
             <h2>Specify Constraints</h2>
-            <p>If you have want to limit the possible range of types of the generic parameter, you can define constraints</p>
+            <p>
+              If you have want to limit the possible range of types of the
+              generic parameter, you can define constraints
+            </p>
           </section>
           <section>
             <pre><code class="ts" data-line-numbers data-noescape>const parseJson = 
@@ -327,17 +349,26 @@ public anyMethod(@decorateParameter message: string)</code></pre>
           </section>
           <section>
             <h2>Possible Use Case: @bind</h2>
-              <pre class="fragment fade-in-then-semi-out"><code class="ts" data-line-numbers>this.handleClick = this.handleClick.bind(this);
+            <pre
+              class="fragment fade-in-then-semi-out"
+            ><code class="ts" data-line-numbers>this.handleClick = this.handleClick.bind(this);
 
 ...
 
 private handleClick () { ... }</code></pre>
-          <div class="fragment">
-          <pre><code class="ts" data-line-numbers>@bind
+            <div class="fragment">
+              <pre><code class="ts" data-line-numbers>@bind
 private handleClick () { ... }</code></pre>
-<br>
-<p>For example: <a target="_blank" href="https://github.com/NoHomey/bind-decorator/blob/master/src/index.ts">https://github.com/NoHomey/bind-decorator/blob/master/src/index.ts</a></p> 
-</div>    
+              <br />
+              <p>
+                For example:
+                <a
+                  target="_blank"
+                  href="https://github.com/NoHomey/bind-decorator/blob/master/src/index.ts"
+                  >https://github.com/NoHomey/bind-decorator/blob/master/src/index.ts</a
+                >
+              </p>
+            </div>
           </section>
           <section>
             <h2>So use only decorators?</h2>
@@ -355,7 +386,7 @@ private handleClick () { ... }</code></pre>
           </section>
           <section>
             <h2>Omit</h2>
-      <pre><code class="ts" data-line-numbers>type Person = {
+            <pre><code class="ts" data-line-numbers>type Person = {
   name: string;
   age: number;
 };
@@ -364,11 +395,13 @@ type OnlyName = Pick&lt;Person, Exclude&lt;keyof Person, "age"&gt;&gt;;
   
 // equivalent to
 type OnlyName = { name: string };</code></pre>
-<pre class="fragment"><code class="ts" data-line-numbers>type OnlyName = Omit&lt;Person, "age"&gt;;</code></pre>
+            <pre
+              class="fragment"
+            ><code class="ts" data-line-numbers>type OnlyName = Omit&lt;Person, "age"&gt;;</code></pre>
           </section>
           <section>
-              <h2>Improved excess property checks in union types</h2>
-      <pre><code class="ts" data-line-numbers>type Point = { x: number, y: number };
+            <h2>Improved excess property checks in union types</h2>
+            <pre><code class="ts" data-line-numbers>type Point = { x: number, y: number };
 type Label = { name: string };
 
 const thing: Point | Label = {
@@ -377,12 +410,10 @@ const thing: Point | Label = {
   name: true // incorrect type,
   // but prior to version 3.5 no error was thrown!
 };</code></pre>
-
-              
-            </section>
-            <section>
-                <h2>Smarter union type checking</h2>
-                <pre><code class="ts" data-line-numbers>type S = { done: boolean, value: number }
+          </section>
+          <section>
+            <h2>Smarter union type checking</h2>
+            <pre><code class="ts" data-line-numbers>type S = { done: boolean, value: number }
 type T =
   | { done: false, value: number }
   | { done: true, value: number };
@@ -392,13 +423,14 @@ declare let target: T;
 
 target = source; // prior to version 3.5 an error was thrown
 // because each type of the union was tested in isolation</code></pre>
-
-                
-              </section>
-              <section>
-                  <h2>Extract to type alias</h2>
-                  <img src="https://devblogs.microsoft.com/typescript/wp-content/uploads/sites/11/2019/05/extractType-3.5.gif" alt="">
-                </section>
+          </section>
+          <section>
+            <h2>Extract to type alias</h2>
+            <img
+              src="https://devblogs.microsoft.com/typescript/wp-content/uploads/sites/11/2019/05/extractType-3.5.gif"
+              alt=""
+            />
+          </section>
         </section>
 
         <section>
