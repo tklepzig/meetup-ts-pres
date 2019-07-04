@@ -1,4 +1,4 @@
-var testString = 8;
+const testString = 8;
 
 function returnSame(param) {
   return param;
